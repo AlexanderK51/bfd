@@ -1,0 +1,19 @@
+image: ubuntu:22.04
+
+stages:
+  - build
+
+before_script:
+  - apt-get update
+  - apt-get install -y autoconf libtool pkg-config build-essential cmake g++ ninja-build libspdlog-dev
+
+build:
+  stage: build
+  script:
+    - echo "Build Logger library"
+    - cmake -B build -G "Ninja"
+    - cmake --build build
+  artifacts:
+    paths:
+      - build/
+    expire_in: 1 day
